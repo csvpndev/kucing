@@ -430,16 +430,16 @@ gem install lolcat
 service cron restart
 
 #SL_Fix
-cd /usr/bin
-wget -O sslh-fix-reboot "https://raw.githubusercontent.com/fisabiliyusri/Mantap/main/sslh-fix/sslh-fix-reboot.sh"
-chmod +x sslh-fix-reboot
-sed -i '$ i\sslh-fix-reboot' /etc/rc.local
+#cd /usr/bin
+#wget -O sslh-fix-reboot "https://raw.githubusercontent.com/fisabiliyusri/Mantap/main/sslh-fix/sslh-fix-reboot.sh"
+#chmod +x sslh-fix-reboot
+#sed -i '$ i\sslh-fix-reboot' /etc/rc.local
 
-chmod +x /etc/rc.local
+#chmod +x /etc/rc.local
 
 # enable rc local
-systemctl enable rc-local
-systemctl start rc-local.service
+#systemctl enable rc-local
+#systemctl start rc-local.service
 
 cd
 sed -i 's/#AllowTcpForwarding yes/AllowTcpForwarding yes/g' /etc/ssh/sshd_config
