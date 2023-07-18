@@ -139,7 +139,7 @@ else
 red "Permission Denied!
 Please Buy AutoScript Premium
 WA: 083831678849
-Telegram: t.me/csvpndev/taikucing/main/meksawitofficial"
+Telegram: t.me/cobeksawitofficial"
 rm setup.sh > /dev/null 2>&1
 sleep 10
 exit 0
@@ -437,7 +437,7 @@ cd
 #install client-sldns.service
 cat > /etc/systemd/system/client-sldns.service << END
 [Unit]
-Description=Client SlowDNS By cobekVPN
+Description=Client SlowDNS By CobekSawit
 Documentation=https://nekopoi.care
 After=network.target nss-lookup.target
 [Service]
@@ -455,7 +455,7 @@ cd
 #install server-sldns.service
 cat > /etc/systemd/system/server-sldns.service << END
 [Unit]
-Description=Server SlowDNS By cobekVPN
+Description=Server SlowDNS By CobekSawit
 Documentation=https://nekopoi.care
 After=network.target nss-lookup.target
 [Service]
@@ -682,7 +682,7 @@ gg="AM"
 fi
 curl -sS ifconfig.me > /etc/myipvps
 echo  " "
-echo "=====================-[ csvpndev/taikucing/main/mek Sawit Tunnel ]-===================="
+echo "=====================-[ Cobek Sawit Tunnel ]-===================="
 echo  ""
 echo  "------------------------------------------------------------"
 echo  ""
