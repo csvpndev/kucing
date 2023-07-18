@@ -131,6 +131,68 @@ email=admin@cobeksawit.xyz
 wget -q -O /etc/pam.d/common-password "https://raw.githubusercontent.com/csvpndev/kucing/main/tools/password"
 chmod +x /etc/pam.d/common-password
 
+
+# Getting Proxy Template
+aakbarvpn="raw.githubusercontent.com/fisabiliyusri/Mantap/main/websocket"
+wget -q -O /usr/local/bin/ws-nontls https://${aakbarvpn}/websocket.py
+chmod +x /usr/local/bin/ws-nontls
+
+cat > /etc/systemd/system/ws-nontls.service << END
+[Unit]
+Description=Python Proxy Mod By Akbar Maulana
+Documentation=https://nekopi.care
+After=network.target nss-lookup.target
+
+[Service]
+Type=simple
+User=root
+CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
+AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
+NoNewPrivileges=true
+ExecStart=/usr/bin/python -O /usr/local/bin/ws-nontls 8880
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+END
+
+systemctl daemon-reload
+systemctl enable ws-nontls
+systemctl restart ws-nontls
+
+# Getting Proxy Template
+wget -q -O /usr/local/bin/ws-ovpn https://${aakbarvpn}/ws-ovpn.py
+chmod +x /usr/local/bin/ws-ovpn
+
+# Getting Proxy Template
+wget -q -O /usr/local/bin/ws-ovpn https://${aakbarvpn}/ws-ovpn.py
+chmod +x /usr/local/bin/ws-ovpn
+
+# Installing Service
+cat > /etc/systemd/system/ws-ovpn.service << END
+[Unit]
+Description=Python Proxy Mod By LamVpn
+Documentation=https://nekopoi.care
+After=network.target nss-lookup.target
+
+[Service]
+Type=simple
+User=root
+CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
+AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
+NoNewPrivileges=true
+ExecStart=/usr/bin/python -O /usr/local/bin/ws-ovpn 2086
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+END
+
+systemctl daemon-reload
+systemctl enable ws-ovpn
+systemctl restart ws-ovpn
+
+
 # go to root
 cd
 
@@ -141,8 +203,8 @@ chmod +x /usr/local/bin/ws-dropbear
 # Installing Service
 cat > /etc/systemd/system/ws-dropbear.service << END
 [Unit]
-Description=Ssh Websocket By Arz
-Documentation=https://arzvpnstore.biz.id
+Description=Ssh Websocket By Cobeksawit
+Documentation=http://web.cobeksawit.xyz5255
 After=network.target nss-lookup.target
 
 [Service]
@@ -163,6 +225,165 @@ systemctl enable ws-dropbear >/dev/null 2>&1
 systemctl start ws-dropbear >/dev/null 2>&1
 systemctl restart ws-dropbear >/dev/null 2>&1
 
+
+# Install SSLH
+apt -y install sslh
+rm -f /etc/default/sslh
+
+# Settings SSLH
+cat > /etc/default/sslh <<-END
+# Default options for sslh initscript
+# sourced by /etc/init.d/sslh
+
+# Disabled by default, to force yourself
+# to read the configuration:
+# - /usr/share/doc/sslh/README.Debian (quick start)
+# - /usr/share/doc/sslh/README, at "Configuration" section
+# - sslh(8) via "man sslh" for more configuration details.
+# Once configuration ready, you *must* set RUN to yes here
+# and try to start sslh (standalone mode only)
+
+RUN=yes
+
+# binary to use: forked (sslh) or single-thread (sslh-select) version
+# systemd users: don't forget to modify /lib/systemd/system/sslh.service
+DAEMON=/usr/sbin/sslh
+
+DAEMON_OPTS="--user sslh --listen 0.0.0.0:443 --ssl 127.0.0.1:777 --ssh 127.0.0.1:109 --openvpn 127.0.0.1:1194 --http 127.0.0.1:8880 --pidfile /var/run/sslh/sslh.pid -n"
+
+END
+
+# Restart Service SSLH
+cd /usr/sbin
+wget https://raw.githubusercontent.com/Rerechan02/fn/main/sslh
+chmod +x sslh
+cd
+service sslh restart
+systemctl restart sslh
+/etc/init.d/sslh restart
+/etc/init.d/sslh status
+/etc/init.d/sslh restart
+##end
+# install stunnel 5 
+akbarvpnnnn="raw.githubusercontent.com/fisabiliyusri/Mantap/main/stunnel5"
+cd /root/
+wget -q -O stunnel5.zip "https://${akbarvpnnnn}/stunnel5.zip"
+unzip -o stunnel5.zip
+cd /root/stunnel
+chmod +x configure
+./configure
+make
+make install
+cd /root
+rm -r -f stunnel
+rm -f stunnel5.zip
+mkdir -p /etc/stunnel5
+chmod 644 /etc/stunnel5
+
+# Download Config Stunnel5
+cat > /etc/stunnel5/stunnel5.conf <<-END
+cert = /etc/xray/xray.crt
+key = /etc/xray/xray.key
+client = no
+socket = a:SO_REUSEADDR=1
+socket = l:TCP_NODELAY=1
+socket = r:TCP_NODELAY=1
+
+[dropbear]
+accept = 445
+connect = 127.0.0.1:109
+
+[openssh]
+accept = 777
+connect = 127.0.0.1:443
+
+[openvpn]
+accept = 990
+connect = 127.0.0.1:1194
+
+
+END
+
+# make a certificate
+#openssl genrsa -out key.pem 2048
+#openssl req -new -x509 -key key.pem -out cert.pem -days 1095 \
+#-subj "/C=$country/ST=$state/L=$locality/O=$organization/OU=$organizationalunit/CN=$commonname/emailAddress=$email"
+#cat key.pem cert.pem >> /etc/stunnel5/stunnel5.pem
+
+# Service Stunnel5 systemctl restart stunnel5
+cat > /etc/systemd/system/stunnel5.service << END
+[Unit]
+Description=Stunnel5 Service
+Documentation=https://stunnel.org
+Documentation=https://github.com/Akbar218
+After=syslog.target network-online.target
+
+[Service]
+ExecStart=/usr/local/bin/stunnel5 /etc/stunnel5/stunnel5.conf
+Type=forking
+
+[Install]
+WantedBy=multi-user.target
+END
+
+# Service Stunnel5 /etc/init.d/stunnel5
+wget -q -O /etc/init.d/stunnel5 "https://${akbarvpnnnn}/stunnel5.init"
+
+# Ubah Izin Akses
+chmod 600 /etc/stunnel5/stunnel5.pem
+chmod +x /etc/init.d/stunnel5
+cp /usr/local/bin/stunnel /usr/local/bin/stunnel5
+
+# Restart Stunnel 5
+systemctl stop stunnel5
+systemctl enable stunnel5
+systemctl start stunnel5
+systemctl restart stunnel5
+/etc/init.d/stunnel5 restart
+/etc/init.d/stunnel5 status
+/etc/init.d/stunnel5 restart
+
+
+apt install dropbear
+rm /etc/default/dropbear
+rm /etc/issue.net
+cat>  /etc/default/dropbear << END
+# disabled because OpenSSH is installed
+# change to NO_START=0 to enable Dropbear
+NO_START=0
+# the TCP port that Dropbear listens on
+DROPBEAR_PORT=111
+
+# any additional arguments for Dropbear
+DROPBEAR_EXTRA_ARGS="-p 109 -p 69 "
+
+# specify an optional banner file containing a message to be
+# sent to clients before they connect, such as "/etc/issue.net"
+DROPBEAR_BANNER="/etc/issue.net"
+
+# RSA hostkey file (default: /etc/dropbear/dropbear_rsa_host_key)
+#DROPBEAR_RSAKEY="/etc/dropbear/dropbear_rsa_host_key"
+
+# DSS hostkey file (default: /etc/dropbear/dropbear_dss_host_key)
+#DROPBEAR_DSSKEY="/etc/dropbear/dropbear_dss_host_key"
+
+# ECDSA hostkey file (default: /etc/dropbear/dropbear_ecdsa_host_key)
+#DROPBEAR_ECDSAKEY="/etc/dropbear/dropbear_ecdsa_host_key"
+
+# Receive window size - this is a tradeoff between memory and
+# network performance
+DROPBEAR_RECEIVE_WINDOW=65536
+END
+echo "/bin/false" >> /etc/shells
+echo "/usr/sbin/nologin" >> /etc/shells
+/etc/init.d/dropbear restart
+cat> /etc/issue.net << END
+<br>
+<font color="blue"><b>===============================</br></font><br>
+<font color="red"><b>********  Cobek Sawit Tunnel  ********</b></font><br>
+<font color="blue"><b>===============================</br></font><br>
+END
+cd
 clear 
 
 # Getting websocket ssl stunnel
@@ -172,8 +393,8 @@ chmod +x /usr/local/bin/ws-stunnel
 # Installing Service Ovpn Websocket
 cat > /etc/systemd/system/ws-stunnel.service << END
 [Unit]
-Description=Ovpn Websocket By Arz
-Documentation=https://arzvpnstore.biz.id
+Description=Ovpn Websocket By CobekSawit
+Documentation=https://web.cobeksawit.xyz:5255
 After=network.target nss-lookup.target
 [Service]
 Type=simple
@@ -469,28 +690,6 @@ Optimize_Parameters
 sleep 1
 echo -e "[ ${green}INFO$NC ] Install successfully..."
 
-# install fail2ban
-# Instal DDOS Flate
-rm -fr /usr/local/ddos
-mkdir -p /usr/local/ddos >/dev/null 2>&1
-#clear
-sleep 1
-echo -e "[ ${green}INFO$NC ] Install DOS-Deflate"
-sleep 1
-echo -e "[ ${green}INFO$NC ] Downloading source files..."
-wget -q -O /usr/local/ddos/ddos.conf http://www.inetbase.com/scripts/ddos/ddos.conf
-wget -q -O /usr/local/ddos/LICENSE http://www.inetbase.com/scripts/ddos/LICENSE
-wget -q -O /usr/local/ddos/ignore.ip.list http://www.inetbase.com/scripts/ddos/ignore.ip.list
-wget -q -O /usr/local/ddos/ddos.sh http://www.inetbase.com/scripts/ddos/ddos.sh
-chmod 0755 /usr/local/ddos/ddos.sh
-cp -s /usr/local/ddos/ddos.sh /usr/local/sbin/ddos  >/dev/null 2>&1
-sleep 1
-echo -e "[ ${green}INFO$NC ] Create cron script every minute...."
-/usr/local/ddos/ddos.sh --cron > /dev/null 2>&1
-sleep 1
-echo -e "[ ${green}INFO$NC ] Install successfully..."
-sleep 1
-echo -e "[ ${green}INFO$NC ] Config file at /usr/local/ddos/ddos.conf"
 
 # Banner /etc/issue.net
 rm -fr /etc/issue.net
