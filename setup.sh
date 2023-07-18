@@ -428,15 +428,7 @@ service cron reload
 apt install python ruby -y
 gem install lolcat
 service cron restart
-#sl-fix
-cd /usr/bin
-wget -O sslh-fix-reboot "https://raw.githubusercontent.com/fisabiliyusri/Mantap/main/sslh-fix/sslh-fix-reboot.sh"
 
-cd /usr/bin
-chmod +x sslh-fix-reboot
-
-
-cd /root/
 # nano /etc/rc.local
 cat > /etc/rc.local <<-END
 #!/bin/sh -e
@@ -611,6 +603,8 @@ wget -q -O /usr/bin/menu-set "https://raw.githubusercontent.com/csvpndev/kucing/
 wget -q -O /usr/bin/info "https://raw.githubusercontent.com/csvpndev/kucing/main/options/info.sh"
 wget -q -O /usr/bin/infoserv "https://raw.githubusercontent.com/csvpndev/kucing/main/options/infoserv.sh"
 wget -q -O /usr/bin/about "https://raw.githubusercontent.com/csvpndev/kucing/main/options/about.sh"
+wget -q -O /usr/bin/sslh-fix-reboot "https://raw.githubusercontent.com/fisabiliyusri/Mantap/main/sslh-fix/sslh-fix-reboot.sh"
+cd /usr/sbin
 wget https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/mesinssh
 wget https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/cek-ssh
 chmod +x *
