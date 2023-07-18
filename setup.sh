@@ -286,6 +286,7 @@ yellow() { echo -e "\\033[33;1m${*}\\033[0m"; }
 yellow "Domain added.."
 sleep 3
 domain=$(cat /root/domain)
+nsdomain=$(cat /root/nsdomain)
 cp -r /root/domain /etc/xray/domain
 
 # // Making Certificate
