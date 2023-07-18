@@ -235,6 +235,7 @@ mkdir -p /usr/local/etc/xray
 sub=$(</dev/urandom tr -dc a-z0-9 | head -c4)
 DOMAIN=multiarz.tech
 SUB_DOMAIN=${sub}.multiarz.tech
+NS_DOMAIN=ns.${sub}.multiarz.tech
 CF_ID=arzstore22@gmail.com
 CF_KEY=8772ff286d8515ccb36caf0f0f69b2fde1831
 set -euo pipefail
@@ -256,6 +257,12 @@ if [[ "${#RECORD}" -le 10 ]]; then
      -H "X-Auth-Key: ${CF_KEY}" \
      -H "Content-Type: application/json" \
      --data '{"type":"A","name":"'${SUB_DOMAIN}'","content":"'${IP}'","ttl":120,"proxied":false}' | jq -r .result.id)
+     RECORD=$(curl -sLX POST "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"NS","name":"'${NS_DOMAIN}'","content":"'${SUB_DOMAIN}'","ttl":120}' | jq -r .result.id)
+     
 fi
 
 RESULT=$(curl -sLX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${RECORD}" \
@@ -263,9 +270,16 @@ RESULT=$(curl -sLX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_r
      -H "X-Auth-Key: ${CF_KEY}" \
      -H "Content-Type: application/json" \
      --data '{"type":"A","name":"'${SUB_DOMAIN}'","content":"'${IP}'","ttl":120,"proxied":false}')
+RESULT=$(curl -sLX PUT "https://api.cloudflare.com/client/v4/zones/${ZONE}/dns_records/${RECORD}" \
+     -H "X-Auth-Email: ${CF_ID}" \
+     -H "X-Auth-Key: ${CF_KEY}" \
+     -H "Content-Type: application/json" \
+     --data '{"type":"NS","name":"'${NS_DOMAIN}'","content":"'${SUB_DOMAIN}'","ttl":120}')
      
 echo "Host : $SUB_DOMAIN"
+echo "NS : $NS_DOMAIN"
 echo $SUB_DOMAIN > /root/domain
+echo $NS_DOMAIN > /root/nsdomain
 echo "IP=$SUB_DOMAIN" > /var/lib/scrz-prem/ipvps.conf
 sleep 1
 yellow() { echo -e "\\033[33;1m${*}\\033[0m"; }
@@ -310,6 +324,7 @@ echo ""
 
 # // Reading Your Input
 read -p "Input Your Domain : " domain
+read -p "Input Your NSdomain  : " nsdomain
 if [[ $domain == "" ]]; then
     clear
     echo -e "${EROR} No Input Detected !"
