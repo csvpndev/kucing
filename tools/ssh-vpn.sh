@@ -762,13 +762,13 @@ history -c
 echo "unset HISTFILE" >> /etc/profile
 
 cd
-wget -O /usr/bin/badvpn-udpgw https://raw.github.com/Rerechan02/sl/main/udpgw/badvpn-udpgw && chmod +x  /usr/bin/badvpn-udpgw
+wget -O /usr/bin/badvpn-udpgw https://raw.github.com/Rerechan02/sl/main/badvpn/badvpn-udpgw && chmod +x  /usr/bin/badvpn-udpgw
 #system badvpn 7300
-wget -O /etc/systemd/system/svr-7300.service https://raw.github.com/Rerechan02/sl/main/udpgw/svr-7300.service && chmod +x  /etc/systemd/system/svr-7300.service
+wget -O /etc/systemd/system/svr-7300.service https://raw.github.com/Rerechan02/sl/main/badvpn/svr-7300.service && chmod +x  /etc/systemd/system/svr-7300.service
 #system badvpn 7200
-wget -O /etc/systemd/system/svr-7200.service https://raw.github.com/Rerechan02/sl/main/udpgw/svr-7200.service && chmod +x  /etc/systemd/system/svr-7200.service
+wget -O /etc/systemd/system/svr-7200.service https://raw.github.com/Rerechan02/sl/main/badvpn/svr-7200.service && chmod +x  /etc/systemd/system/svr-7200.service
 #system badvpn 7100
-wget -O /etc/systemd/system/svr-7100.service https://raw.github.com/Rerechan02/sl/main/udpgw/svr-7100.service && chmod +x  /etc/systemd/system/svr-7100.service
+wget -O /etc/systemd/system/svr-7100.service https://raw.github.com/Rerechan02/sl/main/badvpn/svr-7100.service && chmod +x  /etc/systemd/system/svr-7100.service
 
 #reboot system 7100
 systemctl daemon-reload
