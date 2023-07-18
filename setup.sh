@@ -393,13 +393,13 @@ wget https://raw.githubusercontent.com/Rerechan02/UDP/main/udp.sh && chmod +x ud
 #SLOWDNS
 apt update -y
 apt install -y python3 python3-dnslib net-tools
-apt install ncurses-utils -y
+apt install ncurses-base -y
 apt install dnsutils -y
 apt install golang -y
 apt install git -y
 apt install curl -y
 apt install wget -y
-apt install ncurses-utils -y
+apt install ncurses-base -y
 apt install screen -y
 apt install cron -y
 apt install iptables -y
