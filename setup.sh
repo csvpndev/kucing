@@ -430,12 +430,6 @@ gem install lolcat
 service cron restart
 #sl-fix
 cd /usr/bin
-rm -r sslh-fix-reboot
-rm -rf sslh-fix-reboot
-rm sslh-fix-reboot
-
-
-cd /usr/bin
 wget -O sslh-fix-reboot "https://raw.githubusercontent.com/fisabiliyusri/Mantap/main/sslh-fix/sslh-fix-reboot.sh"
 
 cd /usr/bin
