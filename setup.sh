@@ -350,7 +350,6 @@ mkdir -p /usr/bin/xray
 mkdir -p /etc/xray
 mkdir -p /usr/local/etc/xray
 #mkdir folder
-mkdir -p /etc/xray
 mkdir -p /etc/cobek
 mkdir -p /etc/cobek/limit
 mkdir -p /etc/cobek/limit/trojan
