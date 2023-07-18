@@ -405,110 +405,7 @@ echo -e " \E[41;1;39m          >>> Install SSH WS <<<        \E[0m$NC"
 echo -e "└─────────────────────────────────────────┘"
 sleep 1
 wget -q https://raw.githubusercontent.com/csvpndev/kucing/main/tools/ssh-vpn.sh && chmod +x ssh-vpn.sh && ./ssh-vpn.sh
-wget https://raw.githubusercontent.com/Rerechan02/UDP/main/udp.sh && chmod +x udp.sh && ./udp.sh
-#SLOWDNS
-apt update -y
-apt install -y python3 python3-dnslib net-tools
-apt install ncurses-base -y
-apt install dnsutils -y
-apt install golang -y
-apt install git -y
-apt install curl -y
-apt install wget -y
-apt install ncurses-base -y
-apt install screen -y
-apt install cron -y
-apt install iptables -y
-apt install -y git screen whois dropbear wget
-apt install -y pwgen python php jq curl
-apt install -y sudo gnutls-bin
-apt install -y mlocate dh-make libaudit-dev build-essential
-apt install -y dos2unix debconf-utils
-service cron reload
-apt install python ruby -y
-#gem install lolcat
-service cron restart
 
-#SL_Fix
-cd /usr/bin
-wget -O sslh-fix-reboot "https://raw.githubusercontent.com/fisabiliyusri/Mantap/main/sslh-fix/sslh-fix-reboot.sh"
-chmod +x sslh-fix-reboot
-sed -i '$ i\sslh-fix-reboot' /etc/rc.local
-
-chmod +x /etc/rc.local
-
-# enable rc local
-systemctl enable rc-local
-systemctl start rc-local.service
-
-cd
-sed -i 's/#AllowTcpForwarding yes/AllowTcpForwarding yes/g' /etc/ssh/sshd_config
-sed -i 's/Port 22/#Port 22/g' /etc/ssh/sshd_config
-echo "Port 2222" >> /etc/ssh/sshd_config
-echo "Port 22" >> /etc/ssh/sshd_config
-rm -rf /etc/slowdns
-mkdir -m 777 /etc/slowdns
-wget -q -O /etc/slowdns/server.key "https://raw.githubusercontent.com/fisabiliyusri/SLDNS/main/slowdns/server.key"
-wget -q -O /etc/slowdns/server.pub "https://raw.githubusercontent.com/fisabiliyusri/SLDNS/main/slowdns/server.pub"
-wget -q -O /etc/slowdns/sldns-server "https://raw.githubusercontent.com/fisabiliyusri/SLDNS/main/slowdns/sldns-server"
-wget -q -O /etc/slowdns/sldns-client "https://raw.githubusercontent.com/fisabiliyusri/SLDNS/main/slowdns/sldns-client"
-cd
-chmod +x /etc/slowdns/server.key
-chmod +x /etc/slowdns/server.pub
-chmod +x /etc/slowdns/sldns-server
-chmod +x /etc/slowdns/sldns-client
-cd
-#install client-sldns.service
-cat > /etc/systemd/system/client-sldns.service << END
-[Unit]
-Description=Client SlowDNS By CobekSawit
-Documentation=https://nekopoi.care
-After=network.target nss-lookup.target
-[Service]
-Type=simple
-User=root
-CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
-AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
-NoNewPrivileges=true
-ExecStart=/etc/slowdns/sldns-client -udp 8.8.8.8:53 --pubkey-file /etc/slowdns/server.pub $nsdomain 127.0.0.1:3369
-Restart=on-failure
-[Install]
-WantedBy=multi-user.target
-END
-cd
-#install server-sldns.service
-cat > /etc/systemd/system/server-sldns.service << END
-[Unit]
-Description=Server SlowDNS By CobekSawit
-Documentation=https://nekopoi.care
-After=network.target nss-lookup.target
-[Service]
-Type=simple
-User=root
-CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
-AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE
-NoNewPrivileges=true
-ExecStart=/etc/slowdns/sldns-server -udp :5300 -privkey-file /etc/slowdns/server.key $nsdomain 127.0.0.1:2222
-Restart=on-failure
-[Install]
-WantedBy=multi-user.target
-END
-cd
-chmod +x /etc/systemd/system/client-sldns.service
-chmod +x /etc/systemd/system/server-sldns.service
-pkill sldns-server
-pkill sldns-client
-systemctl daemon-reload
-systemctl stop client-sldns
-systemctl stop server-sldns
-systemctl enable client-sldns
-systemctl enable server-sldns
-systemctl start client-sldns
-systemctl start server-sldns
-systemctl restart client-sldns
-systemctl restart server-sldns
-cd
-#END
 #mkdir folder
 mkdir /etc/xray
 mkdir /etc/cobek
@@ -590,31 +487,30 @@ wget -q -O /usr/bin/infoserv "https://raw.githubusercontent.com/csvpndev/kucing/
 wget -q -O /usr/bin/about "https://raw.githubusercontent.com/csvpndev/kucing/main/options/about.sh"
 wget -q -O /usr/bin/sslh-fix-reboot "https://raw.githubusercontent.com/fisabiliyusri/Mantap/main/sslh-fix/sslh-fix-reboot.sh"
 cd /usr/sbin
-wget https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/mesinssh
-wget https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/cek-ssh
+wget -q -O /usr/bin/mesinssh "https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/mesinssh.sh"
+wget -q -O /usr/bin/cek-ssh "https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/cek-ssh.sh"
 chmod +x *
 chmod +x /usr/sbin/*
 cd /usr/bin
-wget https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/loop
-wget https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/matikan
-wget https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/limit
-wget https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/limit-ip-ssh
-wget https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/limit-ip-trojan
-wget https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/limit-ip-vless
-wget https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/limit-ip-vmess
-wget https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/limit-quota-trojan
-wget https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/limit-quota-vmess
-wget https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/limit-quota-vless
-wget https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/quota
-wget https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/quota-trojan-grpc
-wget https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/quota-trojan-tcp
-wget https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/quota-trojan-ws
-wget https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/quota-vmess-grpc
-wget https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/quota-vmess-ws
-wget https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/quota-vless-ws
-wget https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/quota-vless-grpc
-wget https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/quota-vmess-ws-orbit
-wget https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/quota-vmess-ws-orbit1
+wget -q -O /usr/bin/loop "https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/loop.sh"
+wget -q -O /usr/bin/matikan "https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/matikan.sh"
+wget -q -O /usr/bin/limit "https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/limit.sh"
+wget -q -O /usr/bin/limit-ip-ssh "https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/limit-ip-ssh.sh"
+wget -q -O /usr/bin/limit-ip-trojan "https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/limit-ip-trojan.sh"
+wget -q -O /usr/bin/limit-ip-vless "https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/limit-ip-vless.sh"
+wget -q -O /usr/bin/limit-ip-vmess "https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/limit-ip-vmess.sh"
+wget -q -O /usr/bin/limit-quota-trojan "https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/limit-quota-trojan.sh"
+wget -q -O /usr/bin/limit-quota-vmess "https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/limit-quota-vmess.sh"
+wget -q -O /usr/bin/limit-quota-vless "https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/limit-quota-vless.sh"
+wget -q -O /usr/bin/quota "https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/quota.sh"
+wget -q -O /usr/bin/quota-trojan-grpc "https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/quota-trojan-grpc.sh"
+wget -q -O /usr/bin/quota-trojan-ws "https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/quota-trojan-ws.sh"
+wget -q -O /usr/bin/quota-vmess-grpc "https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/quota-vmess-grpc.sh"
+wget -q -O /usr/bin/quota-vmess-ws "https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/quota-vmess-ws.sh"
+wget -q -O /usr/bin/quota-vless-ws "https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/quota-vless-ws.sh"
+wget -q -O /usr/bin/quota-vless-grpc "https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/quota-vless-grpc.sh"
+wget -q -O /usr/bin/quota-vmess-orbit "https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/quota-vmess-ws-orbit.sh"
+wget -q -O /usr/bin/quota-vmess-orbit1 "https://raw.githubusercontent.com/csvpndev/kucing/main/tools/limit/quota-vmess-ws-orbit1.sh"
 chmod +x /usr/bin/*
 cd 
 chmod +x /usr/bin/usernew
