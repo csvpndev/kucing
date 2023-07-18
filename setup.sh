@@ -349,6 +349,39 @@ mkdir -p /var/lib/scrz-prem/
 mkdir -p /usr/bin/xray
 mkdir -p /etc/xray
 mkdir -p /usr/local/etc/xray
+#mkdir folder
+mkdir -p /etc/xray
+mkdir -p /etc/cobek
+mkdir -p /etc/cobek/limit
+mkdir -p /etc/cobek/limit/trojan
+mkdir -p /etc/cobek/limit/vless
+mkdir -p /etc/cobek/limit/vmess
+mkdir -p /etc/cobek/limit/ssh
+mkdir -p /etc/cobek/limit/ssh/ip
+mkdir -p /etc/cobek/limit/trojan/ip
+mkdir -p /etc/cobek/limit/trojan/quota
+mkdir -p /etc/cobek/limit/vless/ip
+mkdir -p /etc/cobek/limit/vless/quota
+mkdir -p /etc/cobek/limit/vmess/ip
+mkdir -p /etc/cobek/limit/vmess/quota
+mkdir -p /etc/cobek/trojan
+mkdir -p /etc/cobek/vless
+mkdir -p /etc/cobek/vmess
+mkdir -p /etc/cobek/log
+mkdir -p /etc/cobek/log/trojan
+mkdir -p /etc/cobek/log/vless
+mkdir -p /etc/cobek/log/vmess
+mkdir -p /etc/cobek/log/ssh
+mkdir -p /etc/cobek/cache
+mkdir -p /etc/cobek/cache/trojan-tcp
+mkdir -p /etc/cobek/cache/trojan-ws
+mkdir -p /etc/cobek/cache/trojan-grpc
+mkdir -p /etc/cobek/cache/vless-ws
+mkdir -p /etc/cobek/cache/vless-grpc
+mkdir -p /etc/cobek/cache/vmess-ws
+mkdir -p /etc/cobek/cache/vmess-grpc
+mkdir -p /etc/cobek/cache/vmess-ws-orbit
+mkdir -p /etc/cobek/cache/vmess-ws-orbit1
 
 # // Input Domain TO VPS
 echo "$domain" > /etc/${Auther}/domain.txt
@@ -406,39 +439,7 @@ echo -e "└──────────────────────�
 sleep 1
 wget -q https://raw.githubusercontent.com/csvpndev/kucing/main/tools/ssh-vpn.sh && chmod +x ssh-vpn.sh && ./ssh-vpn.sh
 
-#mkdir folder
-mkdir /etc/xray
-mkdir /etc/cobek
-mkdir /etc/cobek/limit
-mkdir /etc/cobek/limit/trojan
-mkdir /etc/cobek/limit/vless
-mkdir /etc/cobek/limit/vmess
-mkdir /etc/cobek/limit/ssh
-mkdir /etc/cobek/limit/ssh/ip
-mkdir /etc/cobek/limit/trojan/ip
-mkdir /etc/cobek/limit/trojan/quota
-mkdir /etc/cobek/limit/vless/ip
-mkdir /etc/cobek/limit/vless/quota
-mkdir /etc/cobek/limit/vmess/ip
-mkdir /etc/cobek/limit/vmess/quota
-mkdir /etc/cobek/trojan
-mkdir /etc/cobek/vless
-mkdir /etc/cobek/vmess
-mkdir /etc/cobek/log
-mkdir /etc/cobek/log/trojan
-mkdir /etc/cobek/log/vless
-mkdir /etc/cobek/log/vmess
-mkdir /etc/cobek/log/ssh
-mkdir /etc/cobek/cache
-mkdir /etc/cobek/cache/trojan-tcp
-mkdir /etc/cobek/cache/trojan-ws
-mkdir /etc/cobek/cache/trojan-grpc
-mkdir /etc/cobek/cache/vless-ws
-mkdir /etc/cobek/cache/vless-grpc
-mkdir /etc/cobek/cache/vmess-ws
-mkdir /etc/cobek/cache/vmess-grpc
-mkdir /etc/cobek/cache/vmess-ws-orbit
-mkdir /etc/cobek/cache/vmess-ws-orbit1
+
 #install ins-xray
 echo -e "┌─────────────────────────────────────────┐"
 echo -e " \E[41;1;39m            >>> Install Xray <<<         \E[0m$NC"
