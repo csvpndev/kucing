@@ -166,7 +166,7 @@ echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━�
 echo -e "Link TLS       : ${vlesslink1}"
 echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e "Link none TLS  : ${vlesslink2}"
-hecho -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo -e "Link gRPC      : ${vlesslink3}"
 echo -e "$COLOR1━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
 echo ""
