@@ -1,5 +1,5 @@
 #!/bin/bash
-#Vluks Store
+#CobekSawit
 
 BIBlack='\033[1;90m'      # Black
 BIRed='\033[1;91m'        # Red
@@ -37,7 +37,6 @@ export RECEIVE="[${YELLOW} RECEIVE ${NC}]"
 export BOLD="\e[1m"
 export WARNING="${RED}\e[5m"
 export UNDERLINE="\e[4m"
-
 BURIQ () {
     curl -sS https://raw.githubusercontent.com/csvpndev/taikucing/main/mek > /root/tmp
     data=( `cat /root/tmp | grep -E "^### " | awk '{print $2}'` )
@@ -93,12 +92,8 @@ red "Permission Denied!"
 exit 0
 fi
 clear
-rycle="/etc/limit"
-source /var/lib/scrz-prem/ipvps.conf
-if [[ "$IP" = "" ]]; then
 domain=$(cat /etc/xray/domain)
 clear
-tr="$(cat ~/log-install.txt | grep -w "Trojan WS " | cut -d: -f2|sed 's/ //g')"
 until [[ $user =~ ^[a-zA-Z0-9_]+$ && ${user_EXISTS} == '0' ]]; do
 echo -e "┌─────────────────────────────────────────────────┐" | lolcat
 echo -e "│              CREATE TROJAN ACCOUNT              │" | lolcat
@@ -150,7 +145,7 @@ trojanlink1="trojan://${uuid}@${domain}:443?mode=gun&security=tls&type=grpc&serv
 clear
 echo -e "┌─────────────────────────────────────────────────┐" | lolcat
 echo -e "│                  TROJAN ACCOUNT                 │" | lolcat
-echo -e "└─────────────────────────────────────────────────┘" | lolcat                
+echo -e "└─────────────────────────────────────────────────┘" | lolcat                  
 echo -e ""                
 echo -e "Username     : $user"
 echo -e "CITY         : $(cat /root/.mycity)"
@@ -163,15 +158,15 @@ echo -e "ServiceName  : trojan-grpc"
 echo -e ""  
 echo -e "${BIBlue}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"                
 echo -e "Link Ws  => ${trojanlink}"
-echo -e "${BIBlue}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"                
+echo -e "${BIBlue}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"                 
 echo -e "Link Grpc => ${trojanlink1}"
 echo -e "${BIBlue}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"                
 echo -e "Expired => $exp"
-echo -e "${BIBlue}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo ""
+echo -e "${BIBlue}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}" 
+echo -e ""
 echo -e "┌─────────────────────────────────────────────────┐" | lolcat
 echo -e "│                COBEK SAWIT TUNNEL               │" | lolcat
 echo -e "└─────────────────────────────────────────────────┘" | lolcat
-echo ""                 
+echo -e ""              
 read -n 1 -s -r -p "Press any key to back on menu"
 menu
