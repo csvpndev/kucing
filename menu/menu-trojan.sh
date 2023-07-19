@@ -107,24 +107,24 @@ clear
 MYIP=$(wget -qO- ipv4.icanhazip.com);
 NUMBER_OF_CLIENTS=$(grep -c -E "^#! " "/etc/xray/config.json")
         if [[ ${NUMBER_OF_CLIENTS} == '0' ]]; then
-echo -e "┌─────────────────────────────────────────────────┐" | lolcat
-echo -e "│              CHECK DETAIL TROJAN                │" | lolcat
-echo -e "└─────────────────────────────────────────────────┘" | lolcat
+                echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+                echo -e "\\E[0;41;36m     Check Detail XRAY Vmess     \E[0m"
+                echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
                 echo ""
                 echo "You have no existing clients!"
                 clear
                 exit 1
         fi
 
-echo -e "┌─────────────────────────────────────────────────┐" | lolcat
-echo -e "│              CHECK DETAIL TROJAN                │" | lolcat
-echo -e "└─────────────────────────────────────────────────┘" | lolcat
+        echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+        echo -e "\\E[0;41;36m     Check Detail XRAY Vmess     \E[0m"
+        echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
         echo " Select the existing client to view the config"
         echo " Press CTRL+C to return"
-                echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
+		echo -e "\033[0;34m━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\033[0m"
         echo "     No  User   Expired"
         grep -E "^#! " "/etc/xray/config.json" | cut -d ' ' -f 2-3 | nl -s ') '
-        until [[ ${CLIENT_NUMBER} -ge 0 && ${CLIENT_NUMBER} -le ${NUMBER_OF_CLIENTS} ]]; do
+	until [[ ${CLIENT_NUMBER} -ge 1 && ${CLIENT_NUMBER} -le ${NUMBER_OF_CLIENTS} ]]; do
                 if [[ ${NUMBER_OF_CLIENTS} == '0' ]]; then
         echo -e "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
                         read -rp "Select one client [1]: " CLIENT_NUMBER
@@ -133,9 +133,8 @@ echo -e "└──────────────────────�
                 fi
         done
 user=$(cat /etc/xray/config.json | grep '^#!' | cut -d ' ' -f 2 | sed -n "${CLIENT_NUMBER}"p)
-tls="$(cat ~/log-install.txt | grep -w "Trojan WS" | cut -d: -f2|sed 's/ //g')"
 domain=$(cat /etc/xray/domain)
-uuid=$(grep "},{" /etc/xray/config.json | cut -b 11-46 | sed -n "${CLIENT_NUMBER}"p)
+uuid=$(grep "},{" /etc/xray/config.json | cut -b 17-52 | sed -n "${CLIENT_NUMBER}"p)
 exp=$(grep -E "^#! " "/etc/xray/config.json" | cut -d ' ' -f 3 | sed -n "${CLIENT_NUMBER}"p)
 hariini=`date -d "0 days" +"%Y-%m-%d"`
 
