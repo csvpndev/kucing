@@ -1,5 +1,5 @@
 #!/bin/bash
-echo -n > /var/log/xray/vless.log
+echo -n > /var/log/xray/access.log
 sleep 4
 data=( `ls /etc/cobek/limit/vless/ip`);
 for user in "${data[@]}"
