@@ -665,6 +665,7 @@ EOF
 # Installing Xray Service
 rm -fr /etc/systemd/system/xray.service.d
 rm -fr /etc/systemd/system/xray.service
+rm -fr /etc/systemd/system/quota.service
 cat <<EOF> /etc/systemd/system/xray.service
 Description=Xray Service
 Documentation=CobekSawit
