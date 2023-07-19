@@ -6,4 +6,3 @@ limit-ip-ssh
 limit-quota-vless
 limit-quota-vmess
 limit-quota-trojan
-nskk
