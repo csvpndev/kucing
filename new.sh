@@ -646,13 +646,11 @@ systemctl enable quota
 systemctl enable ws-stunnel
 systemctl enable stunnel5
 systemctl enable xray
-systemctl enable udp-custom
 systemctl start nginx
 systemctl start quota
 systemctl start ws-stunnel
 systemctl start stunnel5
 systemctl start xray
-systemctl start udp-custom
 rm -fr /root/*
 cat > /root/system << END
 END
