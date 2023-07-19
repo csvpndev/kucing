@@ -1,4 +1,4 @@
-echo -n > /var/log/xray/vmess.log
+echo -n > /var/log/xray/access.log
 sleep 4
 data=( `ls /etc/cobek/limit/vmess/ip`);
 for user in "${data[@]}"
