@@ -3,8 +3,8 @@ dateFromServer=$(curl -v --insecure --silent https://google.com/ 2>&1 | grep Dat
 clear
 # BOT INFORMATION
 date=$(date -R | cut -d " " -f -5)
-export CHATID="6389176425"
-export KEY="6230907878:AAExag4j8lRsJbMdAIv6T9STI1g6kp_Vq68"
+export CHATID="-1001653060605"
+export KEY="5906281821:AAGzzml6dBtOgO7-iMF7l_3GX5pCV-Bxb9M"
 export TIME="10"
 export URL="https://api.telegram.org/bot$KEY/sendMessage"
 IP=$(wget -qO- ipinfo.io/ip);
@@ -641,14 +641,12 @@ rm -fr /root/ssh-vpn.sh
 rm -fr /root/ins-xray.sh
 rm -fr /root/install.sh
 systemctl daemon-reload
-systemctl enable client
 systemctl enable nginx
 systemctl enable quota
 systemctl enable ws-stunnel
 systemctl enable stunnel5
 systemctl enable xray
 systemctl enable udp-custom
-systemctl start client
 systemctl start nginx
 systemctl start quota
 systemctl start ws-stunnel
