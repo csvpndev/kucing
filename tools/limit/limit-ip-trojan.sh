@@ -1,5 +1,5 @@
 #!/bin/bash
-echo -n > /var/log/xray/trojan.log
+echo -n > /var/log/xray/access.log
 sleep 4
 data=( `ls /etc/cobek/limit/trojan/ip`);
 for user in "${data[@]}"
