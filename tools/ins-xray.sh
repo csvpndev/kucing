@@ -682,6 +682,19 @@ LimitNOFILE=1000000
 [Install]
 WantedBy=multi-user.target
 EOF
+cat> /etc/systemd/system/quota.service << END
+[Unit]
+Description=Checker Service
+
+[Service]
+Type=simple
+Restart=always
+ExecStart=/usr/bin/loop
+
+[Install]
+WantedBy=multi-user.target
+END
+#quota
 echo -e "[ ${GREEN}ok${NC} ] Enable & Start & Restart & Xray"
 systemctl daemon-reload >/dev/null 2>&1
 systemctl enable xray >/dev/null 2>&1
